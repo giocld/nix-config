@@ -1,5 +1,5 @@
 {config, pkgs, ...}: let
-  xremapConfig = pkgs.formats.yaml {}.generate "xremap-config.yml" config.services.xremap.config;
+  xremapConfig = (pkgs.formats.yaml {}).generate "xremap-config.yml" config.services.xremap.config;
 in {
   imports = [
     ./input.nix
