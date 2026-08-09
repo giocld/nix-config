@@ -1,4 +1,6 @@
-{lib, pkgs, ...}: {
+{config, pkgs, ...}: let
+  xremapConfig = pkgs.formats.yaml {}.generate "xremap-config.yml" config.services.xremap.config;
+in {
   imports = [
     ./input.nix
     ./layout.nix
@@ -14,9 +16,21 @@
     package = null;
     portalPackage = null;
 
+    systemd = {
+      enable = false;
+      variables = [];
+    };
+
     settings = {
       exec-once = [
         "waybar"
+        "hyprpaper"
+        "dunst"
+        "swayidle -w timeout 300 'swaylock -fu' before-sleep 'swaylock -fu' lock 'swaylock -fu'"
+        "swayosd-server --style ${../swayosd/style.css}"
+        "wl-paste --watch cliphist -max-dedupe-search 10 -max-items 500 store"
+        "wl-paste --type image --watch cliphist -max-dedupe-search 10 -max-items 500 store"
+        "xremap ${xremapConfig}"
       ];
 
       general = {
@@ -49,12 +63,6 @@
       xwayland = {
         force_zero_scaling = true;
       };
-    };
-
-    systemd = {
-      variables = [
-        "--all"
-      ];
     };
   };
 
