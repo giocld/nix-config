@@ -1,17 +1,14 @@
 {...}: {
-  systemd.user.services = {
-    cliphist.restartIfChanged = false;
-    "cliphist-images".restartIfChanged = false;
-    dunst.restartIfChanged = false;
-    hyprpaper.restartIfChanged = false;
-    swayidle.restartIfChanged = false;
-    swayosd.restartIfChanged = false;
-    xremap.restartIfChanged = false;
-  };
-
-  systemd.user.targets = {
-    graphical-session.restartIfChanged = false;
-    hyprland-session.restartIfChanged = false;
-    tray.restartIfChanged = false;
+  systemd.user.units = {
+    "cliphist.service".restartIfChanged = false;
+    "cliphist-images.service".restartIfChanged = false;
+    "dunst.service".restartIfChanged = false;
+    "hyprpaper.service".restartIfChanged = false;
+    "swayidle.service".restartIfChanged = false;
+    "swayosd.service".restartIfChanged = false;
+    "xremap.service".restartIfChanged = false;
+    "graphical-session.target".restartIfChanged = false;
+    "hyprland-session.target".restartIfChanged = false;
+    "tray.target".restartIfChanged = false;
   };
 }
