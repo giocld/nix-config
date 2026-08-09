@@ -3,6 +3,8 @@
     devenv
     tilt
 
+    fastfetch
+
     ffmpeg
     p7zip
   ];
@@ -28,6 +30,10 @@
           split row (char esep) |
           append /usr/bin/env
         )
+
+        if $nu.is-interactive {
+          fastfetch
+        }
       '';
     };
 

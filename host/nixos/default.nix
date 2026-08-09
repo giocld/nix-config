@@ -86,8 +86,8 @@
     lib.mkForce {
       rounding = 8;
 
-      active_opacity = 0.92;
-      inactive_opacity = 0.85;
+      active_opacity = 0.87;
+      inactive_opacity = 0.80;
 
       shadow = {
         enabled = false;
