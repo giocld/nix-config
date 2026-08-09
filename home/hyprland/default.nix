@@ -9,8 +9,8 @@ in {
   home.packages = [
     pkgs.hyprpaper
     pkgs.hyprpicker
+    pkgs.inputs.xremap.default
     pkgs.swayidle
-    pkgs.xremap
   ];
 
   wayland.windowManager.hyprland = {
