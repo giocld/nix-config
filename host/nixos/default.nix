@@ -66,5 +66,10 @@
   home-manager.users.gio.wayland.windowManager.hyprland.settings.monitor =
     lib.mkForce ",preferred,auto,1";
 
+  home-manager.users.gio.wayland.windowManager.hyprland.settings.input =
+    lib.mkForce {
+      kb_layout = "us";
+    };
+
   system.stateVersion = "24.11";
 }
