@@ -6,11 +6,6 @@
       url = "github:nixos/nixpkgs";
     };
 
-    silicon = {
-      url = "github:schphe/nixos-apple-silicon/modified";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -101,12 +96,6 @@
     ];
   in {
     nixosConfigurations = {
-      macbook = utilities.newHost ./host/macbook
-      "aarch64-linux" args host home
-      (with inputs; [
-        silicon.nixosModules.default
-      ]);
-
       nixos = utilities.newHost ./host/nixos
       "x86_64-linux" args host home [];
     };

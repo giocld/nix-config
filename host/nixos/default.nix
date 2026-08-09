@@ -65,8 +65,8 @@
 
   home-manager.users.gio.wayland.windowManager.hyprland.settings.monitor =
     lib.mkForce [
-      "DP-2,preferred,auto,1"
-      "DP-3,preferred,auto,1"
+      "DP-3,preferred,0x0,1"
+      "DP-2,preferred,1920x0,1"
     ];
 
   home-manager.users.gio.wayland.windowManager.hyprland.settings.workspace = [
