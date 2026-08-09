@@ -1,6 +1,6 @@
 {lib, ...}: {
   imports = [
-    ./nixos-hardware-configuration.nix
+    ./hardware-configuration.nix
   ];
 
   boot.loader = {
