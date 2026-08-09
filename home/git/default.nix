@@ -3,8 +3,8 @@
     git = {
       enable = true;
 
-      userEmail = "git@emin.sh";
-      userName = "schphe";
+      userEmail = "gio@localhost";
+      userName = "gio";
     };
 
     git-credential-oauth = {

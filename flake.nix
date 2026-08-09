@@ -74,7 +74,7 @@
     utilities = import ./util inputs;
 
     globals = {
-      username = "schphe";
+      username = "gio";
       terminal = "kitty";
     };
 
@@ -106,6 +106,9 @@
       (with inputs; [
         silicon.nixosModules.default
       ]);
+
+      nixos = utilities.newHost ./host/nixos
+      "x86_64-linux" args host home [];
     };
 
     inherit (utilities)
