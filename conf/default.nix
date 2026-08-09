@@ -1,4 +1,11 @@
-{config, globals, utilities, ...}: {
+{config, globals, lib, utilities, ...}: let
+  useSopsPassword = config.my.sopsPassword;
+in {
+  options.my.sopsPassword = lib.mkOption {
+    type = lib.types.bool;
+    default = true;
+  };
+
   imports = (utilities.importDirs ./.);
 
   nix.settings = {
@@ -29,7 +36,7 @@
     allowUnfree = true;
   };
 
-  sops.secrets = {
+  sops.secrets = lib.mkIf useSopsPassword {
     ${globals.username} = {
       neededForUsers = true;
     };
@@ -38,7 +45,7 @@
   users.users.${globals.username} = let
     password = config.sops.secrets.${globals.username};
   in {
-    hashedPasswordFile = password.path;
+    hashedPasswordFile = lib.mkIf useSopsPassword password.path;
     isNormalUser = true;
 
     extraGroups = [

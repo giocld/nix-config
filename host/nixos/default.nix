@@ -44,6 +44,8 @@
     pulse.enable = true;
   };
 
+  my.sopsPassword = false;
+
   users.users.gio = {
     isNormalUser = true;
     extraGroups = [
