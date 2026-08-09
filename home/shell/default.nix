@@ -3,8 +3,11 @@
     devenv
     tilt
 
-    fastfetch
-
+    lazygit
+    lazydocker
+    fastfetch 
+    btop
+    
     ffmpeg
     p7zip
   ];
