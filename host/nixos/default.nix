@@ -64,11 +64,41 @@
   environment.sessionVariables.GDK_SCALE = lib.mkForce "1";
 
   home-manager.users.gio.wayland.windowManager.hyprland.settings.monitor =
-    lib.mkForce ",preferred,auto,1";
+    lib.mkForce [
+      "DP-2,preferred,auto,1"
+      "DP-3,preferred,auto,1"
+    ];
 
-  home-manager.users.gio.wayland.windowManager.hyprland.settings.input =
+  home-manager.users.gio.wayland.windowManager.hyprland.settings.workspace = [
+    "1,monitor:DP-2"
+    "2,monitor:DP-2"
+    "3,monitor:DP-2"
+    "4,monitor:DP-2"
+    "5,monitor:DP-2"
+    "6,monitor:DP-3"
+    "7,monitor:DP-3"
+    "8,monitor:DP-3"
+    "9,monitor:DP-3"
+    "10,monitor:DP-3"
+  ];
+
+  home-manager.users.gio.wayland.windowManager.hyprland.settings.decoration =
     lib.mkForce {
-      kb_layout = "us";
+      rounding = 8;
+
+      active_opacity = 0.92;
+      inactive_opacity = 0.85;
+
+      shadow = {
+        enabled = false;
+      };
+
+      blur = {
+        enabled = true;
+        size = 6;
+        passes = 2;
+        vibrancy = 0.2;
+      };
     };
 
   system.stateVersion = "24.11";

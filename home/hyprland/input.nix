@@ -49,7 +49,7 @@
     };
 
     input = {
-      kb_layout = "tr";
+      kb_layout = "en, gr";
 
       touchpad = {
         clickfinger_behavior = true;
