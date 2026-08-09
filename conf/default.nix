@@ -1,14 +1,14 @@
 {config, globals, lib, utilities, ...}: let
   useSopsPassword = config.my.sopsPassword;
 in {
+  imports = (utilities.importDirs ./.);
+
   options.my.sopsPassword = lib.mkOption {
     type = lib.types.bool;
     default = true;
   };
 
   config = {
-    imports = (utilities.importDirs ./.);
-
     nix.settings = {
       experimental-features = [
         "flakes"
