@@ -6,50 +6,52 @@ in {
     default = true;
   };
 
-  imports = (utilities.importDirs ./.);
+  config = {
+    imports = (utilities.importDirs ./.);
 
-  nix.settings = {
-    experimental-features = [
-      "flakes"
-      "nix-command"
-    ];
+    nix.settings = {
+      experimental-features = [
+        "flakes"
+        "nix-command"
+      ];
 
-    substituters = [
-      "https://cache.nixos.org"
-      "https://cache.garnix.io"
-      "https://anyrun.cachix.org"
-    ];
+      substituters = [
+        "https://cache.nixos.org"
+        "https://cache.garnix.io"
+        "https://anyrun.cachix.org"
+      ];
 
-    trusted-public-keys = [
-      "anyrun.cachix.org-1:pqBobmOjI7nKlsUMV25u9QHa9btJK65/C8vnO3p346s="
-      "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
-      "hydra.nixos.org-1:CNHJZBh9K4tP3EKF6FkkgeVYsS3ohTl+oS0Qa8bezVs="
-    ];
+      trusted-public-keys = [
+        "anyrun.cachix.org-1:pqBobmOjI7nKlsUMV25u9QHa9btJK65/C8vnO3p346s="
+        "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
+        "hydra.nixos.org-1:CNHJZBh9K4tP3EKF6FkkgeVYsS3ohTl+oS0Qa8bezVs="
+      ];
 
-    trusted-users = [
-      "@wheel"
-      "root"
-    ];
-  };
-
-  nixpkgs.config = {
-    allowUnfree = true;
-  };
-
-  sops.secrets = lib.mkIf useSopsPassword {
-    ${globals.username} = {
-      neededForUsers = true;
+      trusted-users = [
+        "@wheel"
+        "root"
+      ];
     };
-  };
 
-  users.users.${globals.username} = let
-    password = config.sops.secrets.${globals.username};
-  in {
-    hashedPasswordFile = lib.mkIf useSopsPassword password.path;
-    isNormalUser = true;
+    nixpkgs.config = {
+      allowUnfree = true;
+    };
 
-    extraGroups = [
-      "wheel"
-    ];
+    sops.secrets = lib.mkIf useSopsPassword {
+      ${globals.username} = {
+        neededForUsers = true;
+      };
+    };
+
+    users.users.${globals.username} = let
+      password = config.sops.secrets.${globals.username};
+    in {
+      hashedPasswordFile = lib.mkIf useSopsPassword password.path;
+      isNormalUser = true;
+
+      extraGroups = [
+        "wheel"
+      ];
+    };
   };
 }
