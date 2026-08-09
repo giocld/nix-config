@@ -7,7 +7,10 @@ in {
   ];
 
   home.packages = [
+    pkgs.hyprpaper
     pkgs.hyprpicker
+    pkgs.swayidle
+    pkgs.xremap
   ];
 
   wayland.windowManager.hyprland = {
