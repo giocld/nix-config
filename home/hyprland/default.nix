@@ -29,7 +29,7 @@ in {
         "waybar"
         "hyprpaper"
         "dunst"
-        "swayidle -w timeout 300 'swaylock -fu' before-sleep 'swaylock -fu' lock 'swaylock -fu'"
+        "swayidle -w before-sleep 'swaylock -fu' lock 'swaylock -fu'"
         "swayosd-server --style ${../swayosd/style.css}"
         "wl-paste --watch cliphist -max-dedupe-search 10 -max-items 500 store"
         "wl-paste --type image --watch cliphist -max-dedupe-search 10 -max-items 500 store"
