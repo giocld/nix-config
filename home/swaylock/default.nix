@@ -19,9 +19,6 @@
       }
     ];
 
-    timeouts = [{
-      timeout = 300;
-      command = lock;
-    }];
+    timeouts = [];
   };
 }

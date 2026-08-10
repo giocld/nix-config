@@ -84,9 +84,9 @@
 
   home-manager.users.gio.wayland.windowManager.hyprland.settings.decoration =
     lib.mkForce {
-      rounding = 8;
+      rounding = 1;
 
-      active_opacity = 0.87;
+      active_opacity = 0.85;
       inactive_opacity = 0.80;
 
       shadow = {
