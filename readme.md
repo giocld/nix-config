@@ -1,7 +1,7 @@
 ## preview
-![prev_1](aset/prev_1.png)
-![prev_2](aset/prev_2.png)
-![prev_3](aset/prev_3.png)
+![prev_1](assets/prev_1.png)
+![prev_2](assets/prev_2.png)
+![prev_3](assets/prev_3.png)
 
 ## about
 its a minimalistic, simply structured, impermanent nixos config
