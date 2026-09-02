@@ -1,4 +1,4 @@
-{ username, terminal, helium, inputs, ... }:
+{ username, terminal, helium, fastpotify, inputs, ... }:
 
 {
   imports = [
@@ -17,6 +17,7 @@
 
   home.packages = [
     helium
+    fastpotify
   ];
 
   programs = {

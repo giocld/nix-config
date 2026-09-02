@@ -38,7 +38,7 @@ in
 
       settings = {
         global = {
-          frame_width = 4;
+          frame_width = 8;
           offset = "10x10";
         };
 
@@ -277,6 +277,8 @@ in
 
         input = {
           kb_layout = "us, gr";
+          repeat_rate = 30;
+          repeat_delay = 300;
 
           touchpad = {
             clickfinger_behavior = true;
@@ -287,12 +289,15 @@ in
         };
       };
 
-      # DeltaTune now-playing overlay: no border/shadow/blur around the words
+      # DeltaTune now-playing overlay: no border/shadow/blur around the words,
+      # and never steal focus from the working window when a track changes.
       window_rule = [
         {
           name = "deltatune-overlay";
           match = { title = "^DeltaTune$"; };
           decorate = false;
+          float = true;
+          no_focus = true;
           no_shadow = true;
           no_blur = true;
           no_anim = true;
