@@ -1,0 +1,137 @@
+#:schema https://yazi-rs.github.io/schemas/theme.json
+
+# "Vague" — mirrors the Zed Vague theme (github.com/gio configs/current)
+# Palette:
+#   bg0 #141415  bg1 #1c1c24  bg2 #252530  bg3 #333738  bg4 #405065
+#   fg0 #c2c2c2  fg1 #7d7d7d   fg2 #606079
+#   accent #7d9aa3  accent2 #74809c
+#   red #a06a74  green #74866e  yellow #a3917c  blue #6d8298
+#   magenta #958a9a  modified #a08a66
+
+[app]
+overall = { bg = "#141415" }
+
+[mgr]
+cwd              = { fg = "#7d9aa3" }
+find_keyword     = { fg = "#a3917c", bold = true, underline = true }
+find_position    = { fg = "#a06a74", bg = "reset", bold = true }
+symlink_target   = { italic = true }
+marker_copied    = { fg = "#74866e", bg = "#74866e" }
+marker_cut       = { fg = "#a06a74", bg = "#a06a74" }
+marker_marked    = { fg = "#7d9aa3", bg = "#7d9aa3" }
+marker_selected  = { fg = "#7d9aa3", bg = "#7d9aa3" }
+marker_symbol    = "│"
+count_copied     = { fg = "#141415", bg = "#74866e" }
+count_cut        = { fg = "#141415", bg = "#a06a74" }
+count_selected   = { fg = "#141415", bg = "#7d9aa3" }
+border_symbol    = "│"
+border_style     = { fg = "#252530" }
+syntect_theme    = ""
+
+[indicator]
+parent  = { bg = "#252530", reversed = true }
+current = { bg = "#405065", reversed = true }
+preview = { bg = "#252530", underline = true }
+padding = { open = " ", close = " " }
+
+[tabs]
+active   = { fg = "#c2c2c2", bg = "#1c1c24", bold = true }
+inactive = { fg = "#7d7d7d", bg = "#141415" }
+sep_inner = { open = " ", close = " " }
+sep_outer = { open = " ", close = " " }
+
+[mode]
+normal_main = { fg = "#141415", bg = "#7d9aa3", bold = true }
+normal_alt  = { fg = "#7d9aa3", bg = "#1c1c24" }
+select_main = { fg = "#141415", bg = "#a06a74", bold = true }
+select_alt  = { fg = "#a06a74", bg = "#1c1c24" }
+unset_main  = { fg = "#141415", bg = "#a08a66", bold = true }
+unset_alt   = { fg = "#a08a66", bg = "#1c1c24" }
+
+[status]
+overall   = { fg = "#c2c2c2", bg = "#141415" }
+sep_left  = { open = " ", close = " " }
+sep_right = { open = " ", close = " " }
+perm_sep   = { fg = "#252530" }
+perm_type  = { fg = "#74866e" }
+perm_read  = { fg = "#a3917c" }
+perm_write = { fg = "#a06a74" }
+perm_exec  = { fg = "#7d9aa3" }
+progress_label  = { bold = true }
+progress_normal = { fg = "#74866e", bg = "#1c1c24" }
+progress_error  = { fg = "#a3917c", bg = "#a06a74" }
+
+[which]
+border          = { fg = "#7d9aa3" }
+cols            = 3
+mask            = { bg = "#141415" }
+cand            = { fg = "#7d9aa3" }
+rest            = { fg = "#7d7d7d" }
+desc            = { fg = "#606079" }
+separator       = "  "
+separator_style = { fg = "#252530" }
+
+[confirm]
+border     = { fg = "#7d9aa3" }
+title      = { fg = "#7d9aa3" }
+body       = { fg = "#c2c2c2", bg = "#1c1c24" }
+list       = { fg = "#c2c2c2", bg = "#1c1c24" }
+btn_yes    = { fg = "#141415", bg = "#7d9aa3", reversed = true }
+btn_no     = { fg = "#c2c2c2", bg = "#1c1c24" }
+btn_labels = [ "  Yes  ", "  No  " ]
+
+[spot]
+border   = { fg = "#7d9aa3" }
+title    = { fg = "#7d9aa3" }
+tbl_col  = { fg = "#7d9aa3" }
+tbl_cell = { fg = "#a3917c", reversed = true }
+
+[notify]
+title_info  = { fg = "#74866e" }
+title_warn  = { fg = "#a3917c" }
+title_error = { fg = "#a06a74" }
+icon_info  = "i"
+icon_warn  = "!"
+icon_error = "x"
+
+[pick]
+border   = { fg = "#7d9aa3" }
+active   = { fg = "#a3917c", bold = true }
+inactive = { fg = "#7d7d7d" }
+
+[input]
+border   = { fg = "#7d9aa3" }
+title    = { fg = "#7d9aa3" }
+value    = { fg = "#c2c2c2" }
+selected = { fg = "#141415", bg = "#7d9aa3", reversed = true }
+
+[cmp]
+border   = { fg = "#7d9aa3" }
+active   = { fg = "#141415", bg = "#7d9aa3", reversed = true }
+inactive = { fg = "#7d7d7d" }
+icon_file    = "f"
+icon_folder  = "d"
+icon_command = "c"
+
+[tasks]
+border  = { fg = "#7d9aa3" }
+title   = { fg = "#7d9aa3" }
+hovered = { fg = "#a3917c", bold = true }
+
+[help]
+border  = { fg = "#7d9aa3" }
+chord   = { fg = "#7d9aa3" }
+action  = { fg = "#c2c2c2" }
+hovered = { fg = "#141415", bg = "#7d9aa3", reversed = true, bold = true }
+
+[filetype]
+rules = [
+  { mime = "**/image/*", fg = "#a3917c" },
+  { mime = "**/{audio,video}/*", fg = "#a3917c" },
+  { mime = "**/application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive,cpio,arj,xar,ms-cab*}", fg = "#a06a74" },
+  { mime = "**/application/{pdf,doc,rtf}", fg = "#7d9aa3" },
+  { url = "*", is = "orphan", fg = "#a06a74" },
+  { url = "*", is = "exec",   fg = "#74866e" },
+  { url = "*", is = "dummy",  fg = "#a06a74" },
+  { url = "*/", fg = "#7d9aa3" },
+]

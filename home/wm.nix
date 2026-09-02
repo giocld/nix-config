@@ -15,6 +15,18 @@ in
     proton-vpn
   ];
 
+  # Cat animation for waybar (sits next to the clock); colored #ccbe9b via CSS.
+  home.file.".local/bin/catloop.sh" = {
+    source = ./files/.local/bin/catloop.sh;
+    executable = true;
+  };
+
+  # Waycat font: maps the catloop.sh letters (A–E running, G–N sleeping)
+  # to animated cat frames. Required for the cat to render at all.
+  home.file.".local/share/fonts/Waycat.ttf" = {
+    source = ./files/.local/share/fonts/Waycat.ttf;
+  };
+
   services = {
     swayosd = {
       enable = true;
@@ -70,8 +82,8 @@ in
       settings.main = {
         height = 1;
 
-        layer = "bottom";
-        position = "top";
+        layer = "top";
+        position = "bottom";
 
         modules-left = [
           "hyprland/workspaces"
@@ -79,6 +91,7 @@ in
 
         modules-center = [
           "clock"
+          "custom/cpucat"
         ];
 
         modules-right = [
@@ -101,6 +114,15 @@ in
         clock = {
           tooltip = true;
           tooltip-format = "{:%d/%m/%y}";
+        };
+
+        # Matches the repo's README exactly: NO interval (waybar runs the
+        # endless catloop.sh once and keeps reading its output).
+        "custom/cpucat" = {
+          exec = "~/.local/bin/catloop.sh";
+          spacing = 1;
+          format = "{}";
+          tooltip = true;
         };
 
         "network#vpn" = {
@@ -157,6 +179,15 @@ in
         #workspaces button.focused {
           background: ${colors.base0D};
           color: ${colors.base00};
+        }
+
+        #custom-cpucat {
+          font-family: "Waycat", monospace;
+          font-size: 32px;
+          font-weight: bold;
+          color: #ccbe9b;
+          padding-left: 8px;
+          padding-right: 8px;
         }
       '' + (builtins.readFile ./files/.config/waybar/base.css);
     };
@@ -361,6 +392,18 @@ in
             "SUPER + H"
             (lib.generators.mkLuaInline ''hl.dsp.focus({direction ="left"})'')
           ];
+        }
+        {
+          _args = [
+            "SUPER + J"
+            (lib.generators.mkLuaInline ''hl.dsp.focus({direction ="up"})'')
+          ];
+        }
+        {
+           _args = [
+             "SUPER + K"
+             (lib.generators.mkLuaInline ''hl.dsp.focus({direction = "down"})'')
+           ];
         }
 
         {
@@ -674,8 +717,14 @@ in
 
         {
           _args = [
-            "SUPER + SHIFT + E"
+            "SUPER + M"
             (lib.generators.mkLuaInline "hl.dsp.window.move({ workspace = \"empty\" })")
+          ];
+        }
+        {
+          _args = [
+            "SUPER + SHIFT + E"
+            (lib.generators.mkLuaInline ''hl.dsp.exec_cmd("kitty yazi")'')
           ];
         }
 

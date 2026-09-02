@@ -58,6 +58,11 @@
         serenity-emoji = pkgs.callPackage ./pkgs/serenity-emoji { };
 
         pi = pkgs.callPackage ./pkgs/pi.nix { };
+
+        # Built from nixpkgs-unstable because it needs Rust >= 1.95
+        # (edition 2024), which the pinned stable nixpkgs lacks.
+        fastpotify =
+          nixpkgs-unstable.legacyPackages.${system}.callPackage ./pkgs/fastpotify.nix { };
       };
 
       overlays = [
@@ -111,6 +116,12 @@
 
           fastfetch =
             nixpkgs-unstable.legacyPackages.${final.system}.fastfetch;
+
+          # yazi from unstable: the pinned stable nixpkgs (Jan 2025) ships an
+          # old yazi whose theme schema ([manager], etc.) predates the current
+          # flavor system ([mgr]/[tabs]/...).
+          yazi =
+            nixpkgs-unstable.legacyPackages.${final.system}.yazi;
         })
       ];
     in

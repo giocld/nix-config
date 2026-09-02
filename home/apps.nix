@@ -17,6 +17,8 @@ in
       };
 
       config = {
+        # Filename must match the theme file in ~/.config/vesktop/themes exactly.
+        enabledThemes = lib.mkForce [ "vague.theme.css" ];
         plugins = {
           gifPaste = {
             enable = true;
@@ -71,6 +73,8 @@ in
   home.packages = with pkgs; [
     spotify
     spicetify-cli
+    yazi
+    bc
   ];
 
   # Launcher entry pointing at the spicetify-patched copy
@@ -101,6 +105,14 @@ in
       chmod -R u+w "$HOME/.config/spicetify"
     fi
   '';
+
+  # yazi + custom "vague" flavor (colors mirror the Zed Vague theme)
+  home.file.".config/yazi/theme.toml" = {
+    source = ./files/.config/yazi/theme.toml;
+  };
+  home.file.".config/yazi/flavors/vague.yazi/flavor.toml" = {
+    source = ./files/.config/yazi/flavors/vague.yazi/flavor.toml;
+  };
 
   xdg.mimeApps = {
     enable = true;
