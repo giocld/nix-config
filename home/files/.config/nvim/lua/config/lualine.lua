@@ -1,3 +1,5 @@
+local filetype = require "lualine.components.filetype"
+local mode     = require "lualine.components.mode"
 local fn = vim.fn
 
 local git_status_cache = {}
@@ -184,7 +186,7 @@ local virtual_env = function()
 end
 
 local get_active_lsp = function()
-  local msg = "🚫"
+  local msg = "X"
   local buf_ft = vim.api.nvim_get_option_value("filetype", {})
   local clients = vim.lsp.get_clients { bufnr = 0 }
   if next(clients) == nil then
@@ -298,13 +300,9 @@ require("lualine").setup {
     },
     lualine_x = {
       {
-        get_active_lsp,
-        icon = "📡",
-      },
-      {
         "diagnostics",
         sources = { "nvim_diagnostic" },
-        symbols = { error = "🆇 ", warn = "⚠️ ", info = "ℹ️ ", hint = " " },
+        symbols = { error = "🆇 ", warn = "!", info = "𝒊", hint = " " },
       },
       {
         trailing_space,
@@ -319,14 +317,6 @@ require("lualine").setup {
       {
         "encoding",
         fmt = string.upper,
-      },
-      {
-        "fileformat",
-        symbols = {
-          unix = "unix",
-          dos = "win",
-          mac = "mac",
-        },
       },
       "filetype",
       {
@@ -344,8 +334,8 @@ require("lualine").setup {
     lualine_b = {},
     lualine_c = { "filename" },
     lualine_x = { "location" },
-    lualine_y = {},
-    lualine_z = {},
+    lualine_y = {"filetype"},
+    lualine_z = {"mode"},
   },
   tabline = {},
   extensions = { "quickfix", "fugitive", "nvim-tree" },

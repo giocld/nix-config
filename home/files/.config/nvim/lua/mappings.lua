@@ -235,12 +235,7 @@ keymap.set("n", "<leader>cb", function()
   )
 end, { desc = "show cursor" })
 
-keymap.set("n", "q", function()
-  vim.print("q is remapped to Q in Normal mode!")
-end)
-keymap.set("n", "Q", "q", {
-  desc = "Record macro",
-})
+-- q / Q restored to stock behavior (q records a macro, Q repeats the last macro)
 
 keymap.set("n", "<Esc>", function()
   vim.cmd("fclose!")

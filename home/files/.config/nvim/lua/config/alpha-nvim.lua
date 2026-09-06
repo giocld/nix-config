@@ -36,7 +36,7 @@ dashboard.section.buttons.val = {
   dashboard.button("m", "⌨  mappings", "<cmd>edit ~/.config/nvim/lua/mappings.lua<cr>"),
   dashboard.button("b", "󰆹  bindings", "<cmd>FzfLua buffers<cr>"),
   dashboard.button("n", "󰍹  niri conf", "<cmd>edit ~/.config/niri/config.kdl<cr>"),
-  dashboard.button("t", "󰌁  themes", "<cmd>lua require('colorschemes').rand_colorscheme()<cr>"),
+  dashboard.button("t", "󰌁  themes", "<cmd>lua vim.cmd.colorscheme('vague')<cr>"),
 }
 
 dashboard.section.footer.val = { "", "Press q to quit", "" }
@@ -80,7 +80,7 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.keymap.set("n", "m", "<cmd>edit ~/.config/nvim/lua/mappings.lua<cr>", { buffer = true, silent = true })
     vim.keymap.set("n", "b", "<cmd>FzfLua buffers<cr>", { buffer = true, silent = true })
     vim.keymap.set("n", "n", "<cmd>edit ~/.config/niri/config.kdl<cr>", { buffer = true, silent = true })
-    vim.keymap.set("n", "t", "<cmd>lua require('colorschemes').rand_colorscheme()<cr>", { buffer = true, silent = true })
+    vim.keymap.set("n", "t", "<cmd>lua vim.cmd.colorscheme('vague')<cr>", { buffer = true, silent = true })
     vim.keymap.set("n", "q", ":qa<CR>", { buffer = true, silent = true })
   end,
 })

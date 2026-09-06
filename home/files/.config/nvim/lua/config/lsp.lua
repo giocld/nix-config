@@ -146,6 +146,7 @@ local enabled_lsp_servers = {
   rust_analyzer = "rust-analyzer",
   nixd = "nixd",
   texlab = "texlab",
+  gopls = "gopls",
 }
 
 for server_name, lsp_executable in pairs(enabled_lsp_servers) do

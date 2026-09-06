@@ -9,8 +9,8 @@ diagnostic.config {
   signs = {
     text = {
       [diagnostic.severity.ERROR] = "🆇",
-      [diagnostic.severity.WARN] = "⚠️",
-      [diagnostic.severity.INFO] = "ℹ️",
+      [diagnostic.severity.WARN] = "!",
+      [diagnostic.severity.INFO] = "𝒊",
       [diagnostic.severity.HINT] = "",
     },
   },

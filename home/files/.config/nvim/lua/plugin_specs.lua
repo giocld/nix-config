@@ -22,20 +22,6 @@ end
 
 local plugin_specs = {
   -- auto-completion engine
-  -- { "hrsh7th/cmp-nvim-lsp", lazy = true },
-  -- { "hrsh7th/cmp-path", lazy = true },
-  -- { "hrsh7th/cmp-buffer", lazy = true },
-  -- { "hrsh7th/cmp-omni", lazy = true },
-  -- { "hrsh7th/cmp-cmdline", lazy = true },
-  -- { "quangnguyen30192/cmp-nvim-ultisnips", lazy = true },
-  -- {
-  --   "hrsh7th/nvim-cmp",
-  --   name = "nvim-cmp",
-  --   event = "VeryLazy",
-  --   config = function()
-  --     require("config.nvim-cmp")
-  --   end,
-  -- },
   {
     "saghen/blink.cmp",
     dependencies = { "rafamadriz/friendly-snippets" },
@@ -94,13 +80,7 @@ local plugin_specs = {
       require("config.hlslens")
     end,
   },
-  {
-    "nvim-telescope/telescope.nvim",
-    cmd = "Telescope",
-    dependencies = {
-      "nvim-telescope/telescope-symbols.nvim",
-    },
-  },
+
   {
     "ibhagwan/fzf-lua",
     config = function()
@@ -115,33 +95,7 @@ local plugin_specs = {
     ft = { "markdown" },
   },
   -- A list of colorscheme plugin you may want to try. Find what suits you.
-  { "navarasu/onedark.nvim", lazy = true },
-  { "sainnhe/edge", lazy = true },
-  { "sainnhe/sonokai", lazy = true },
-  { "sainnhe/gruvbox-material", lazy = true },
-  { "sainnhe/everforest", lazy = true },
-  { "EdenEast/nightfox.nvim", lazy = true },
-  { "catppuccin/nvim", name = "catppuccin", lazy = true },
-  { "olimorris/onedarkpro.nvim", lazy = true },
-  { "marko-cerovac/material.nvim", lazy = true },
-  {
-    "rockyzhang24/arctic.nvim",
-    dependencies = { "rktjmp/lush.nvim" },
-    name = "arctic",
-    branch = "v2",
-  },
-  { "rebelot/kanagawa.nvim", lazy = true },
-  { "miikanissi/modus-themes.nvim", priority = 1000 },
-  { "wtfox/jellybeans.nvim", priority = 1000 },
-  { "projekt0n/github-nvim-theme", name = "github-theme" },
-  { "e-ink-colorscheme/e-ink.nvim", priority = 1000 },
-  { "ficcdaf/ashen.nvim", priority = 1000 },
-  { "savq/melange-nvim", priority = 1000 },
-  { "Skardyy/makurai-nvim", priority = 1000 },
   { "vague2k/vague.nvim", priority = 1000 },
-  { "webhooked/kanso.nvim", priority = 1000 },
-  { "zootedb0t/citruszest.nvim", priority = 1000 },
-  { "dupeiran001/nord.nvim", priority = 1000, opts = {} },
 
   -- plugins to provide nerdfont icons
   {
@@ -252,73 +206,6 @@ local plugin_specs = {
 
   { "nvim-lua/plenary.nvim", lazy = true },
 
-  -- For Windows and Mac, we can open an URL in the browser. For Linux, it may
-  -- not be possible since we maybe in a server which disables GUI.
-  {
-    "chrishrb/gx.nvim",
-    keys = { { "gx", "<cmd>Browse<cr>", mode = { "n", "x" } } },
-    cmd = { "Browse" },
-    init = function()
-      vim.g.netrw_nogx = 1 -- disable netrw gx
-    end,
-    enabled = function()
-      return vim.g.is_win or vim.g.is_mac
-    end,
-    config = function()
-      require("config.gx")
-    end,
-    submodules = false, -- not needed, submodules are required only for tests
-  },
-
-  -- Only install these plugins if ctags are installed on the system
-  -- show file tags in vim window
-  {
-    "liuchengxu/vista.vim",
-    init = function()
-      vim.cmd([[
-        let g:vista#renderer#icons = {
-              \ 'member': '',
-              \ }
-        " Do not echo message on command line
-        let g:vista_echo_cursor = 0
-        " Stay in current window when vista window is opened
-        let g:vista_stay_on_open = 0
-
-        nnoremap <silent> <Space>t :<C-U>Vista!!<CR>
-      ]])
-    end,
-    enabled = function()
-      return utils.executable("ctags")
-    end,
-    cmd = "Vista",
-  },
-
-  -- Snippet engine and snippet template
-  {
-    "SirVer/ultisnips",
-    init = function()
-      vim.cmd([[
-        " Trigger configuration. Do not use <tab> if you use YouCompleteMe
-        let g:UltiSnipsExpandTrigger='<c-j>'
-
-        " Do not look for SnipMate snippets
-        let g:UltiSnipsEnableSnipMate = 0
-
-        " Shortcut to jump forward and backward in tabstop positions
-        let g:UltiSnipsJumpForwardTrigger='<c-j>'
-        let g:UltiSnipsJumpBackwardTrigger='<c-k>'
-
-        " Configuration for custom snippets directory, see
-        " https://jdhao.github.io/2019/04/17/neovim_snippet_s1/ for details.
-        let g:UltiSnipsSnippetDirectories=['UltiSnips', 'my_snippets']
-      ]])
-    end,
-    dependencies = {
-      "honza/vim-snippets",
-    },
-    event = "InsertEnter",
-  },
-
   -- Automatic insertion and deletion of a pair of characters
   {
     "windwp/nvim-autopairs",
@@ -360,27 +247,6 @@ local plugin_specs = {
       vim.cmd([[
       let g:better_escape_interval = 100
     ]])
-    end,
-    event = { "InsertEnter" },
-  },
-
-  {
-    "lyokha/vim-xkbswitch",
-    init = function()
-      vim.cmd([[
-        let g:XkbSwitchEnabled = 1
-      ]])
-    end,
-    enabled = function()
-      return vim.g.is_mac and utils.executable("xkbswitch")
-    end,
-    event = { "InsertEnter" },
-  },
-
-  {
-    "Neur1n/neuims",
-    enabled = function()
-      return vim.g.is_win
     end,
     event = { "InsertEnter" },
   },
@@ -485,7 +351,6 @@ local plugin_specs = {
       vim.cmd([[
         if executable('latex')
           " Hacks for inverse search to work semi-automatically,
-          " see https://jdhao.github.io/2021/02/20/inverse_search_setup_neovim_vimtex/.
           function! s:write_server_name() abort
             let nvim_server_file = (has('win32') ? $TEMP : '/tmp') . '/vimtexserver.txt'
             call writefile([v:servername], nvim_server_file)
@@ -586,100 +451,10 @@ local plugin_specs = {
   },
   { "tpope/vim-scriptease", cmd = { "Scriptnames", "Messages", "Verbose" } },
 
-  -- Asynchronous command execution
-  {
-    "skywind3000/asyncrun.vim",
-    init = function()
-      vim.cmd([[
-        " Automatically open quickfix window of 6 line tall after asyncrun starts
-        let g:asyncrun_open = 6
-        if g:is_win
-          " Command output encoding for Windows
-          let g:asyncrun_encs = 'gbk'
-        endif
-      ]])
-    end,
-    cmd = { "AsyncRun" },
-  },
   { "cespare/vim-toml", ft = { "toml" }, branch = "main" },
-
-  -- Edit text area in browser using nvim
-  {
-    "glacambre/firenvim",
-    init = function()
-      vim.cmd([[
-        """"""""""""""""""""""""""""""firenvim settings""""""""""""""""""""""""""""""
-        if exists('g:started_by_firenvim') && g:started_by_firenvim
-          if g:is_mac
-            set guifont=Iosevka\ Nerd\ Font:h18
-          else
-            set guifont=Consolas
-          endif
-
-          " general config for firenvim
-          let g:firenvim_config = {
-              \ 'globalSettings': {
-                  \ 'alt': 'all',
-              \  },
-              \ 'localSettings': {
-                  \ '.*': {
-                      \ 'cmdline': 'neovim',
-                      \ 'priority': 0,
-                      \ 'selector': 'textarea',
-                      \ 'takeover': 'never',
-                  \ },
-              \ }
-          \ }
-
-          function s:setup_firenvim() abort
-            set signcolumn=no
-            set noruler
-            set noshowcmd
-            set laststatus=0
-            set showtabline=0
-          endfunction
-
-          augroup firenvim
-            autocmd!
-            autocmd BufEnter * call s:setup_firenvim()
-            autocmd BufEnter sqlzoo*.txt set filetype=sql
-            autocmd BufEnter github.com_*.txt set filetype=markdown
-            autocmd BufEnter stackoverflow.com_*.txt set filetype=markdown
-          augroup END
-        endif
-      ]])
-    end,
-    enabled = function()
-      return vim.g.is_win or vim.g.is_mac
-    end,
-    -- it seems that we can only call the firenvim function directly.
-    -- Using vim.fn or vim.cmd to call this function will fail.
-    build = function()
-      local firenvim_path = vim.fs.joinpath(plugin_dir, "firenvim")
-      vim.opt.runtimepath:append(firenvim_path)
-      vim.cmd("runtime! firenvim.vim")
-
-      -- macOS will reset the PATH when firenvim starts a nvim process, causing the PATH variable to change unexpectedly.
-      -- Here we are trying to get the correct PATH and use it for firenvim.
-      -- See also https://github.com/glacambre/firenvim/blob/master/TROUBLESHOOTING.md#make-sure-firenvims-path-is-the-same-as-neovims
-      local path_env = vim.env.PATH
-      local prologue = string.format('export PATH="%s"', path_env)
-      -- local prologue = "echo"
-      local cmd_str = string.format(":call firenvim#install(0, '%s')", prologue)
-      vim.cmd(cmd_str)
-    end,
-  },
 
   -- Session management plugin
   { "tpope/vim-obsession", cmd = "Obsession" },
-
-  {
-    "ojroques/vim-oscyank",
-    enabled = function()
-      return vim.g.is_linux
-    end,
-    cmd = { "OSCYank", "OSCYankReg" },
-  },
 
   -- showing keybindings
   {
@@ -721,8 +496,6 @@ local plugin_specs = {
     terminal = {}, -- Enables the snacks provider for opencode
   },
 },
-    -- show and trim trailing whitespaces
-  { "jdhao/whitespace.nvim", event = "VeryLazy" },
 
   -- file explorer
   {
@@ -751,35 +524,6 @@ local plugin_specs = {
       },
     },
   },
-  {
-    "CopilotC-Nvim/CopilotChat.nvim",
-    dependencies = {
-      { "zbirenbaum/copilot.lua" }, -- or github/copilot.vim
-    },
-    opts = {
-      debug = true, -- Enable debugging
-      -- See Configuration section for rest
-    },
-    cmd = { "CopilotChat" },
-  },
-  --[[{
-  "nickjvandyke/opencode.nvim",
-  version = "*",
-  config = function()
-    ---@type opencode.Opts
-    vim.g.opencode_opts = {
-      -- Your configuration here, if any
-    }
-    vim.o.autoread = true -- Required for opts.events.reload
-  end,
-  keys = {
-    { "<leader>oa", function() require("opencode").ask("@this: ", { submit = true }) end, mode = { "n", "x" }, desc = "Ask opencode..." },
-    { "<leader>ox", function() require("opencode").select() end, mode = { "n", "x" }, desc = "Execute opencode action..." },
-    { "<leader>ot", function() require("opencode").toggle() end, mode = { "n", "t" }, desc = "Toggle opencode" },
-    { "go", function() return require("opencode").operator("@this ") end, mode = { "n", "x" }, desc = "Add range to opencode", expr = true },
-    { "goo", function() return require("opencode").operator("@this ") .. "_" end, mode = "n", desc = "Add line to opencode", expr = true },
-    },
-  },--]]
   {
   "nickjvandyke/opencode.nvim",
   version = "*",
@@ -835,13 +579,6 @@ local plugin_specs = {
       { "<leader>os", "<cmd>OpencodeSend<cr>", mode = "v", desc = "Sync selection to OpenCode" },
     }
 },
-  {
-    "zbirenbaum/copilot.lua",
-    cmd = "Copilot",
-    config = function()
-      require("copilot").setup {}
-    end,
-  },
   {
     "smjonas/live-command.nvim",
     -- live-command supports semantic versioning via Git tags
@@ -899,7 +636,7 @@ local plugin_specs = {
     config = function()
       require("supermaven-nvim").setup {
         keymaps = {
-          accept_suggestion = "<C-l>",
+          accept_suggestion = "<C-e>",
           clear_suggestion = "<C-]>",
           accept_word = "<C-j>",
         },

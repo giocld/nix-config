@@ -26,11 +26,9 @@ require("plugin_specs")
 -- diagnostic related config
 require("diagnostic-conf")
 
--- colorscheme settings
-local color_scheme = require("colorschemes")
-vim.cmd.colorscheme("vague")
-
 -- Custom cursor and highlight colors
+-- Must be registered BEFORE the colorscheme is loaded, so the initial
+-- ColorScheme event applies these highlights at startup.
 local custom_hl_group = vim.api.nvim_create_augroup("CustomHighlights", { clear = true })
 vim.api.nvim_create_autocmd("ColorScheme", {
   group = custom_hl_group,
@@ -47,40 +45,8 @@ vim.api.nvim_create_autocmd("ColorScheme", {
   end,
 })
 
-vim.api.nvim_create_autocmd("User", {
-  pattern = "LazyDone",
-  group = custom_hl_group,
-  callback = function()
-    vim.api.nvim_set_hl(0, "Cursor", { bg = "#86bece", fg = "NONE" })
-    vim.api.nvim_set_hl(0, "CursorIM", { bg = "#86bece", fg = "NONE" })
-    vim.api.nvim_set_hl(0, "Visual", { bg = "#86bece" })
-    vim.api.nvim_set_hl(0, "HighlightedyankRegion", { bg = "#86bece" })
-    vim.api.nvim_set_hl(0, "YankyPut", { bg = "#86bece" })
-    vim.api.nvim_set_hl(0, "YankyYanked", { bg = "#86bece" })
-    vim.api.nvim_set_hl(0, "IncSearch", { bg = "#86bece", fg = "#000000" })
-    vim.api.nvim_set_hl(0, "Search", { bg = "#86bece", fg = "#000000" })
-    vim.opt.guicursor = "n-v-c:block-Cursor,i-ci-ve:ver25-Cursor,r-cr:hor20-Cursor,o:hor50-Cursor"
-  end,
-})
+-- colorscheme settings (after highlight registration, so the initial
+-- ColorScheme event applies the custom cursor/highlight colors above)
+local color_scheme = require("colorschemes")
+vim.cmd.colorscheme("vague")
 
-vim.api.nvim_create_autocmd("VimEnter", {
-  group = custom_hl_group,
-  callback = function()
-    vim.api.nvim_set_hl(0, "Cursor", { bg = "#86bece", fg = "NONE" })
-    vim.api.nvim_set_hl(0, "CursorIM", { bg = "#86bece", fg = "NONE" })
-    vim.api.nvim_set_hl(0, "Visual", { bg = "#86bece" })
-    vim.api.nvim_set_hl(0, "HighlightedyankRegion", { bg = "#86bece" })
-    vim.api.nvim_set_hl(0, "YankyPut", { bg = "#86bece" })
-    vim.api.nvim_set_hl(0, "YankyYanked", { bg = "#86bece" })
-    vim.opt.guicursor = "n-v-c:block-Cursor,i-ci-ve:ver25-Cursor,r-cr:hor20-Cursor,o:hor50-Cursor"
-  end,
-})
-
-vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter" }, {
-  group = custom_hl_group,
-  callback = function()
-    vim.api.nvim_set_hl(0, "HighlightedyankRegion", { bg = "#86bece" })
-    vim.api.nvim_set_hl(0, "YankyPut", { bg = "#86bece" })
-    vim.api.nvim_set_hl(0, "YankyYanked", { bg = "#86bece" })
-  end,
-})

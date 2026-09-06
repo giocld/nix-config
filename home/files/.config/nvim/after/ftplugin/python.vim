@@ -1,5 +1,5 @@
-if exists(':AsyncRun')
-  nnoremap <buffer><silent> <F9> :<C-U>AsyncRun python -u "%"<CR>
+if exists(':TermExec')
+  nnoremap <buffer><silent> <F9> :<C-U>TermExec cmd="python -u %"<CR>
 endif
 
 " Do not wrap Python source code.
