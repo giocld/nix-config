@@ -75,6 +75,9 @@ in
     spicetify-cli
     yazi
     bc
+    # Run AppImages on NixOS: supplies libfuse.so.2 + the ELF libs the
+    # bundle expects. Usage: appimage-run ./foo.AppImage
+    appimage-run
   ];
 
   # Launcher entry pointing at the spicetify-patched copy
@@ -89,6 +92,27 @@ in
       Type=Application
       Terminal=false
       Categories=AudioVideo;Audio;Player;
+    '';
+  };
+
+  # ZCode rewrites this entry on every start, pointing Exec at the raw
+  # AppImage. That can't self-mount on NixOS (no libfuse.so.2), so the
+  # launcher silently does nothing. ZCode (via appimage-run) manages to
+  # replace the store symlink anyway, so force = true reclaims the path
+  # on every activation instead of dying on a backup collision.
+  home.file.".local/share/applications/zcode.desktop" = {
+    force = true;
+    text = ''
+      [Desktop Entry]
+      Name=ZCode
+      Comment=ZCode Desktop App
+      Exec=${pkgs.appimage-run}/bin/appimage-run ${config.home.homeDirectory}/Downloads/ZCode-3.14.4-linux-x64.AppImage %U
+      Icon=zcode
+      Type=Application
+      Terminal=false
+      StartupWMClass=ZCode
+      Categories=Development;
+      MimeType=x-scheme-handler/zcode;
     '';
   };
 

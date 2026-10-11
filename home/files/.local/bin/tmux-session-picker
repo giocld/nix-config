@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+# fzf tmux session picker.
+#   tmux-session-picker          -> switch/create/kill menu
+#   tmux-session-picker new      -> create and attach/switch
+#   tmux-session-picker kill     -> kill a session
+set -euo pipefail
+
+create_session() {
+  local name
+  name=$(fzf --height 40% --reverse --no-sort --query "" \
+    --prompt "New session name (empty = default): " <<< "default") || exit 0
+  [ -z "$name" ] && name="default"
+  if [ -n "${TMUX:-}" ]; then
+    tmux new-session -d -s "$name" \
+      || tmux new-session -d -s "$name" -n shell
+    tmux switch-client -t "$name"
+  else
+    exec tmux new-session -s "$name"
+  fi
+}
+
+kill_session() {
+  local target
+  target=$(tmux ls -F '#S' 2>/dev/null | fzf --height 40% --reverse \
+    --prompt "Kill session: ") || exit 0
+  tmux kill-session -t "$target"
+}
+
+pick_session() {
+  local selected
+  selected=$(
+    {
+      tmux ls -F 'switch	#S' 2>/dev/null
+      printf 'create	new session\n'
+    } | fzf --height 40% --reverse --delimiter='\t' --with-nth=2 \
+        --prompt="Sessions: "
+  ) || exit 0
+
+  local op="${selected%%$'\t'*}"
+  local name="${selected#*$'\t'}"
+
+  case "$op" in
+    switch)
+      if [ -n "${TMUX:-}" ]; then
+        tmux switch-client -t "$name"
+      else
+        exec tmux attach-session -t "$name"
+      fi
+      ;;
+    create) create_session ;;
+  esac
+}
+
+case "${1:-pick}" in
+  pick) pick_session ;;
+  new) create_session ;;
+  kill) kill_session ;;
+  *) echo "usage: $(basename "$0") [pick|new|kill]" >&2; exit 1 ;;
+esac

@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+# Dev layout 2: single-window split
+#   [ nvim ~60% | terminal ~20% | lazygit ~20% ]   all in the project dir
+#
+# Usage: tmux-dev <project-dir> [start-command]
+#   tmux-dev ~/Projects/api              # plain shells + lazygit
+#   tmux-dev ~/Projects/api 'just run'   # command typed into the terminal pane
+#
+# Env: NOT_ATTACH=1  build the session without attaching (for testing)
+set -euo pipefail
+
+dir=${1:-$PWD}
+cmd=${2:-}
+dir=$(realpath "$dir")
+name=$(basename "$dir")
+session="dev-$name"
+
+if tmux has-session -t "=$session" 2>/dev/null; then
+  [ "${NOT_ATTACH:-}" = 1 ] && exit 0
+  exec tmux attach-session -t "$session"
+fi
+
+# nvim as the window program (resurrect restores it as a session)
+tmux new-session -d -s "$session" -n dev -c "$dir" nvim
+
+# two more columns to the right: terminal | lazygit
+tmux split-window -h -t "$session:dev.1" -c "$dir"
+tmux split-window -h -t "$session:dev.2" -c "$dir"
+
+# exact 60 / 20 / 20 of the window width
+tmux resize-pane -t "$session:dev.1" -x 60%
+tmux resize-pane -t "$session:dev.3" -x 20%
+
+# send-keys (not a direct program) keeps a shell alive after lazygit exits
+tmux send-keys -t "$session:dev.3" lazygit Enter
+[ -n "$cmd" ] && tmux send-keys -t "$session:dev.2" "$cmd" Enter
+
+tmux select-pane -t "$session:dev.1"
+
+[ "${NOT_ATTACH:-}" = 1 ] && exit 0
+exec tmux attach-session -t "$session"

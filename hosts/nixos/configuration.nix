@@ -34,6 +34,12 @@
     settings.Settings.AlwaysRandomizeAddress = true;
   };
 
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 14d";
+  };
+
   time.timeZone = "Europe/Athens";
 
   i18n.defaultLocale = "en_US.UTF-8";
@@ -69,13 +75,14 @@
     enable = true;
 
     settings = let
-      command = "Hyprland > /dev/null";
+      # Launch via start-hyprland (not the raw Hyprland binary) to avoid the
+      # "started without start-hyprland" startup warning and get proper env setup.
+      command = "${pkgs.hyprland}/bin/start-hyprland > /dev/null";
     in rec {
       default_session = {
         command = "${pkgs.tuigreet}/bin/tuigreet --cmd '${command}'";
         user = username;
       };
-
       initial_session = {
         inherit command;
         user = username;
@@ -87,6 +94,10 @@
     hyprland.enable = true;
 
     fish.enable = true;
+
+    # Provide /lib64/ld-linux-x86-64.so.2 so unpatched prebuilt binaries
+    # (e.g. magnitude-cli downloaded by the magnitude launcher) can run.
+    nix-ld.enable = true;
 
     fuse.userAllowOther = true;
 

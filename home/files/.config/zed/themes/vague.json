@@ -248,10 +248,11 @@
         "terminal.ansi.bright.magenta": "#958a9a",
         "terminal.ansi.bright.cyan": "#7d9aa3",
         "terminal.ansi.bright.white": "#c2c2c2",
+        "cursor": "#77a7b5",
         "players": [
           {
-            "cursor": "#1d2b3f",
-            "background": "#1d2b3f",
+            "cursor": "#77a7b5",
+            "background": "#77a7b5",
             "selection": "#1d2b3f4d"
           }
         ],

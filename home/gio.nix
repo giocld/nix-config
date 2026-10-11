@@ -1,4 +1,4 @@
-{ username, terminal, helium, fastpotify, inputs, ... }:
+{ username, terminal, helium, fastpotify, magnitude, inputs, ... }:
 
 {
   imports = [
@@ -18,6 +18,7 @@
   home.packages = [
     helium
     fastpotify
+    magnitude
   ];
 
   programs = {
@@ -48,6 +49,9 @@
       ".config/xfce4/xfconf"
       ".config/Proton"
       ".config/vesktop"
+
+      # magnitude: CLI releases, inference backends, downloaded models
+      ".magnitude"
     ];
 
     files = [

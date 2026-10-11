@@ -14,6 +14,10 @@
   "minimap": {
     "enabled": false
   },
+  "cursor_animation": {
+    "enabled": true
+  },
+
   "toolbar" : {
     "quick_actions": true
   },

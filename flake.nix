@@ -31,6 +31,12 @@
     hy3.url = "github:outfoxxed/hy3?ref=hl0.47.0";
 
     omp.url = "github:can1357/oh-my-pi";
+
+    # fastpotify: v0.7.0+ bundles libprojectM (MilkDrop) and has git deps in
+    # Cargo.lock, so we build via upstream's own flake package (it pins its Rust
+    # toolchain) instead of a local derivation. To upgrade: change the tag here,
+    # run `nix flake lock --update-input fastpotify`, then `nixos-rebuild switch`.
+    fastpotify.url = "github:crmne/fastpotify/v0.7.0";
   };
 
   outputs =
@@ -61,8 +67,11 @@
 
         # Built from nixpkgs-unstable because it needs Rust >= 1.95
         # (edition 2024), which the pinned stable nixpkgs lacks.
-        fastpotify =
-          nixpkgs-unstable.legacyPackages.${system}.callPackage ./pkgs/fastpotify.nix { };
+        # v0.7.0+ bundles libprojectM + git deps, so we use upstream's own flake
+        # package (the `fastpotify` input) rather than a local derivation.
+        fastpotify = inputs.fastpotify.packages.${system}.default;
+
+        magnitude = pkgs.callPackage ./pkgs/magnitude.nix { };
       };
 
       overlays = [

@@ -427,6 +427,28 @@ local plugin_specs = {
     ft = { "tmux" },
   },
 
+  -- Seamless window/pane navigation between nvim and tmux
+  {
+    "christoomey/vim-tmux-navigator",
+    enabled = function()
+      return utils.executable("tmux")
+    end,
+    cmd = {
+      "TmuxNavigateLeft",
+      "TmuxNavigateDown",
+      "TmuxNavigateUp",
+      "TmuxNavigateRight",
+      "TmuxNavigatePrevious",
+    },
+    keys = {
+      { "<c-h>", "<cmd><C-U>TmuxNavigateLeft<cr>" },
+      { "<c-j>", "<cmd><C-U>TmuxNavigateDown<cr>" },
+      { "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>" },
+      { "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
+      { "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
+    },
+  },
+
   -- Modern matchit implementation
   {
     "andymass/vim-matchup",
@@ -647,6 +669,7 @@ local plugin_specs = {
 
 require("lazy").setup {
   spec = plugin_specs,
+  lockfile = vim.fn.stdpath("state") .. "/lazy-lock.json", -- config dir is read-only (home-manager/nix)
   ui = {
     border = "rounded",
     title = "Plugin Manager",

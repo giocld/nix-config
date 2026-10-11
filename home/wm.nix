@@ -9,6 +9,7 @@ in
     hyprpicker
     swayidle
     grimblast
+    slurp
     wl-clipboard
     bluetui
     impala
@@ -251,8 +252,8 @@ in
         };
 
         dwindle = {
-          preserve_split = true;
-          smart_split = false;
+          preserve_split = false;
+          smart_split = true;
         };
 
         misc = {
@@ -289,9 +290,28 @@ in
         };
       };
 
-      # DeltaTune now-playing overlay: no border/shadow/blur around the words,
-      # and never steal focus from the working window when a track changes.
+      # kitty restores the state of the last closed window (part of
+      # remember_window_size, on by default). After a maximized/fullscreen
+      # kitty gets closed, ~/.cache/kitty/main.json caches "maximized" and
+      # every new terminal sends xdg set_maximized at map — which Hyprland
+      # 0.56's rewritten maximize handling turns into "move to the other
+      # monitor's active workspace + apply fullscreen". Ignore those
+      # requests from terminals entirely (upstream ships the same rule for
+      # all apps in example/hyprland.lua).
       window_rule = [
+        {
+          name = "suppress-kitty-maximize";
+          match = { class = "^kitty$"; };
+          suppress_event = "maximize";
+        }
+        {
+          name = "suppress-kitty-fullscreen";
+          match = { class = "^kitty$"; };
+          suppress_event = "fullscreen";
+        }
+
+        # DeltaTune now-playing overlay: no border/shadow/blur around the words,
+        # and never steal focus from the working window when a track changes.
         {
           name = "deltatune-overlay";
           match = { title = "^DeltaTune$"; };

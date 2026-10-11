@@ -243,10 +243,10 @@ require("lualine").setup {
         c = { fg = "#D8DEE9", bg = "#2E3440" },
       },
       diagnostics = {
-        error = { fg = "#BF616A", gui = "bold" },
-        warn = { fg = "#EBCB8B", gui = "bold" },
-        info = { fg = "#81A1C1" },
-        hint = { fg = "#A3BE8C" },
+        error = { fg = "#4f3233", gui = "bold" },
+        warn = { fg = "#b89170",gui = "bold" },
+        info = { fg = "#4a5559" },
+        hint = { fg = "#1d1e24" },
       },
     },
     component_separators = { left = "⏐", right = "⏐" },
@@ -282,10 +282,16 @@ require("lualine").setup {
       {
         "diff",
         source = diff,
+        coloured = true, 
+        diff_color = {
+          added = { fg = "#899fa6"},
+          modified = { fg = "#b89170"},
+          removed = { fg = "#ab7474"},
+        },
       },
       {
         virtual_env,
-        color = { fg = "black", bg = "#F1CA81" },
+        color = { fg = "black", bg ="#4a5559"},
       },
     },
     lualine_c = {
@@ -295,7 +301,7 @@ require("lualine").setup {
       },
       {
         spell,
-        color = { fg = "black", bg = "#a7c080" },
+        color = { fg = "black", bg =  "#1d1e24"},
       },
     },
     lualine_x = {
@@ -305,28 +311,21 @@ require("lualine").setup {
         symbols = { error = "🆇 ", warn = "!", info = "𝒊", hint = " " },
       },
       {
-        trailing_space,
-        color = "WarningMsg",
-      },
-      {
         mixed_indent,
         color = "WarningMsg",
       },
     },
     lualine_y = {
-      {
-        "encoding",
-        fmt = string.upper,
-      },
       "filetype",
       {
         ime_state,
-        color = { fg = "black", bg = "#f46868" },
+        color = { fg = "black", bg = "#4f3233"},
       },
     },
     lualine_z = {
       "location",
       "progress",
+      "mode",
     },
   },
   inactive_sections = {
