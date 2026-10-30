@@ -72,6 +72,8 @@
         fastpotify = inputs.fastpotify.packages.${system}.default;
 
         magnitude = pkgs.callPackage ./pkgs/magnitude.nix { };
+
+        deltatune = pkgs.callPackage ./pkgs/deltatune.nix { };
       };
 
       overlays = [

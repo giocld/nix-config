@@ -1,4 +1,4 @@
-{ username, terminal, helium, fastpotify, magnitude, inputs, ... }:
+{ username, terminal, helium, fastpotify, magnitude, deltatune, inputs, ... }:
 
 {
   imports = [
@@ -9,6 +9,7 @@
     ./editors.nix
     ./apps.nix
     ./pi.nix
+    ./deltatune.nix
   ];
 
   home.username = username;
@@ -19,6 +20,7 @@
     helium
     fastpotify
     magnitude
+    deltatune
   ];
 
   programs = {

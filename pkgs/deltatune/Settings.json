@@ -1,0 +1,38 @@
+{
+  "ScaleFactor": 2,
+  "Position": {
+    "X": 0.975,
+    "Y": 0.025
+  },
+  "Offset": {
+    "X": 0.0,
+    "Y": 0.0
+  },
+  "ScreenName": "",
+  "ShowArtistName": true,
+  "ShowPlaybackStatus": false,
+  "HideAutomatically": 5.0,
+  "TextColor": "#EBDDB2FF",
+  "Outline": {
+    "Enabled": true,
+    "Color": "#1D2021FF",
+    "Thickness": 1
+  },
+  "Background": {
+    "Enabled": false,
+    "Color": "#1D2021E6",
+    "CornerRadius": 4,
+    "PaddingX": 8,
+    "PaddingY": 3
+  },
+  "WindowOpacity": 1.0,
+  "Animation": {
+    "AppearDuration": 0.75,
+    "DisappearDuration": 0.75,
+    "DelayDuration": 0.5,
+    "SlideDistance": 24.0
+  },
+  "Format": "",
+  "PreferredPlayers": [],
+  "IgnorePlayers": []
+}
