@@ -358,7 +358,7 @@ in
       if [ "$(${pkgs.patchelf}/bin/patchelf --print-interpreter "$server" 2>/dev/null)" = "/lib64/ld-linux-x86-64.so.2" ]; then
         ${pkgs.patchelf}/bin/patchelf \
           --set-interpreter ${pkgs.glibc}/lib/ld-linux-x86-64.so.2 \
-          --add-rpath ${lib.makeLibraryPath [ pkgs.openssl_3 pkgs.gcc.cc.lib pkgs.glibc ]} \
+          --add-rpath ${lib.makeLibraryPath [ pkgs.openssl pkgs.gcc.cc.lib pkgs.glibc ]} \
           "$server"
       fi
     done
